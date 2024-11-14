@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Bottle from "./bottle";
 
-export default function Bottles() {
+export default function Bottles({bottle}) {
     const [count, setCount] = useState([]); 
 
     useEffect(() => {
@@ -14,19 +14,41 @@ export default function Bottles() {
             .catch(error => console.error("Error fetching data:", error));
     }, []);
 
+   
+    let [cart,setCart]=useState([])
+    
+    
+
+
+    function purchaseBtn(bottle){
+        console.log('added purchase btn')
+        // console.log(typeof bottle)
+        // console.log(bottle)
+        // setBottle(bottle);
+        
+        let addingCart=[...cart,setCart];
+        setCart(addingCart);
+        
+    }
+    
+   
+
     return (
         <div>
             <h3>Drinks here</h3>
+            <div style={{
+                display:'flex',justifyContent:'flex-end'
+            }}><button style={{backgroundColor:'orange'}}>Cart:{cart.length}</button></div>
 
             <div style={{
             display:'grid',
-            gridTemplateColumns:'repeat(3,1fr)',
+            gridTemplateColumns:'repeat(4,1fr)',
            
         }}>
 
             {
                 count.map((res, index) => (
-                    <Bottle bottle={res} key={index} />
+                    <Bottle btn={purchaseBtn} bottle={res} key={index} />
                 ))
             }
 
